@@ -11,7 +11,15 @@
       "module-resolver",
       {
         "root": "./src",
-        "alias": {
+        "alias": 
+        {
+          "@Components": "./src/components",
+          "@Styles": "./src/assets/styles",
+          "@Utils": "./src/utils",
+          "@Image": "./src/assets/img",
+          "@Reducer": "./src/reducers",
+          "@Action": "./src/actions",
+          "@Context": "./src/context"
         }
       }
     ]

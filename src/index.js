@@ -1,5 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import { render } from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+import SideNav from '@Components/SideNav';
+import { IPFSContext }  from '@Context';
+import '@Styles/App.scss';
 
-// render(<App/>, document.getElementById('root'));
+render(
+  <IPFSContext.Provider>
+    <SideNav />
+  </IPFSContext.Provider>,
+  document.getElementById('root')
+)

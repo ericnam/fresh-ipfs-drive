@@ -5,9 +5,15 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/runtime": "^7.5.4",
+    "constate": "^1.2.0",
+    "ipfs": "^0.36.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-redux": "^6.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "webpack-dev-server --mode development",
@@ -16,6 +22,7 @@
     "watch": "webpack --watch",
     "serv": "nodemon --watch webpack.config.js --exec \"webpack-dev-server --mode development --env.development --open\""
   },
+  "author": "ENam",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -39,11 +46,15 @@
     "@babel/preset-env": "^7.5.4",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
-    "css-loader": "^3.0.0",
+    "css-loader": "^3.1.0",
     "error-overlay-webpack-plugin": "^0.4.0",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
     "nodemon": "^1.19.1",
-    "styled-components": "^4.3.2",
+    "sass": "^1.22.7",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.4"
