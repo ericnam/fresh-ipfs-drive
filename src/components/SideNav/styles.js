@@ -14,3 +14,9 @@ export const SideNavContainer = styled.section`
     margin-left: 0;
   }
 `;
+
+export const CreateButton = styled.button`
+  border: grey;
+  margin: 10px;
+  padding: 25px;
+`;

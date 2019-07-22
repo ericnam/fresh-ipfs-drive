@@ -2,14 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addFile, getDirectory } from '@Action'
-import { IPFSContext }  from '@Context';
+import { DirectoryContext }  from '@Context';
 
-import { SideNavContainer } from './styles';
+import { SideNavContainer, CreateButton } from './styles';
+import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants'
 
 const SideNav = () => {
-  const { dir } = IPFSContext();
+  const { dir, AddFile } = DirectoryContext();
+  const newEntry = {
+    type: FILE_TYPE,
+    name: 'test',
+    path: '/wow/amaze',
+    size: 0,
+    date: '',
+    synced: false,
+    syncing: false, 
+    children: []
+  }
+
   return(
-    <SideNavContainer>{dir}</SideNavContainer>
+    <SideNavContainer>
+      <CreateButton onClick={() => AddFile(newEntry)}>Create</CreateButton>
+      {dir}
+    </SideNavContainer>
   )
 }
 

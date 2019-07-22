@@ -1,39 +1,119 @@
-// import { createStore, applyMiddleware } from 'redux';
-// import reducers from '@Reducer';
-// import thunk from 'redux-thunk';
-
-// export default createStore(
-//   reducers,
-//   applyMiddleware(thunk)
-// );
-
 import { useState } from "react";
-import createUseContext from "constate"; // State Context Object Creator
+import createUseContext from "constate"; 
+import { FILE_TYPE, FOLDER_TYPE, HOME_NODE_ADDRS } from '@Utils/constants';
+import multiaddr from 'multiaddr';
+
+const ipfs = require('ipfs');
+const ipfs_node = new ipfs();
 
 const root = {
-  type: '',
+  type: FOLDER_TYPE,
   name: 'root',
   path: '/',
   size: 0,
   date: '',
   synced: false,
-  syncing: false
+  syncing: false, 
+  children: [
+    {
+      type: FOLDER_TYPE,
+      name: 'wow',
+      path: '/wow',
+      size: 0,
+      date: '',
+      synced: false,
+      syncing: false, 
+      children: []
+    }
+  ]
 }
 
-// Step 1: Create a custom hook that contains your state and actions
-const useIPFS = () => {
-  const [dir, updateDir] = useState(JSON.stringify({root}));
+const testHash = "QmRWZeYxzfTm9LwUCQcj3QVLMZgzRFVqjiYp8aeyconrmh";
+
+const searchDir = (dir, entryPath, i) => {
+  var pathArray = entryPath.split('/');
+  if (pathArray.length - 1 === i) {
+    return dir;
+  }  
+  return searchDir(dir.children.find(x => x.name === pathArray[i]), entryPath, i+1);
+}
+
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
+const pullDirectory = async (ipfs, hash) => {
+  var directory = [];
+
+  ipfs.ls(hash, async (err, files) => {
+    if (err) { console.log(err); }
+
+    asyncForEach(files, async (file) => {
+      directory.push(file);
+      if (file.type === 'dir') {
+        const subDir = await pullDirectory(ipfs, file.path);
+        directory.concat(subDir);
+      }
+    })
+
+    // files.forEach((file) => {
+    //   if (err) { console.log(err); }
+    //   directory.push(file);
+    //   if (file.type === 'dir') {
+    //     const subDir = await pullDirectory(ipfs, file.path);
+    //     directory.concat(subDir);
+    //   }
+    // });
+
+    // console.log(directory)
+    return directory;
+  });
+}
+
+const useDirectory = () => {
+
+  // app states
+  const [HomeNodeInit, updateHomeNodeInit] = useState(false);
+  const [IPFSinit, updateIPFSInit] = useState(false);
+  const [dir, updateDir] = useState([]);
+
+  ipfs_node.on('ready', () => {    
+    // Connect to raspi node
+    ipfs_node.swarm.connect(HOME_NODE_ADDRS, async (err) => {
+      if (err) { 
+        console.log(err); 
+      }
+      else { 
+        console.log('Successfully connected to rasp pi node.'); 
+      }
+
+      const rootDir = await pullDirectory(ipfs_node, testHash);
+      console.log(rootDir);
+    });
+
+
+    // ipfs_node.ls(testHash, (err, files) => {
+    //   console.log('ls hit');
+    //   if (err) { console.log(err); }
+    //   files.forEach((file) => {
+    //     console.log(file.path + " " + file.type)
+    //   })
+    // });
+  });
 
   const AddFile = (newEntry) => {
     updateDir(prevDirStr => { 
       var prevDir = JSON.parse(prevDirStr);
-      // check location of file added, add in appropriate spot in obj
-      prevDir.push(newEntry); 
+      searchDir(prevDir, newEntry.path, 1).children.push(newEntry);
+      return JSON.stringify(prevDir);
     });
   };
 
   return { dir, AddFile };
 }
 
-// Step 2: Declare your context state object to share the state with other components
-export const IPFSContext = createUseContext(useIPFS);
+const DirectoryContext = createUseContext(useDirectory);
+
+export { DirectoryContext }
