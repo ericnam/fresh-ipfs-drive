@@ -9,12 +9,15 @@ import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants'
 
 const SideNav = () => {
   const { dir, AddFile } = DirectoryContext();
+
+  console.log(dir);
+
   const newEntry = {
     type: FILE_TYPE,
     name: 'test',
     path: '/wow/amaze',
     size: 0,
-    date: '',
+    depth: 0,
     synced: false,
     syncing: false, 
     children: []
@@ -23,7 +26,6 @@ const SideNav = () => {
   return(
     <SideNavContainer>
       <CreateButton onClick={() => AddFile(newEntry)}>Create</CreateButton>
-      {dir}
     </SideNavContainer>
   )
 }
