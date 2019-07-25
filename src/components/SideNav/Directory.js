@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { DirectoryContext }  from '@Context';
+import { Record, RecordContainer } from './styles';
 
 const Directory = () => {
-  const { dir, AddFile } = DirectoryContext();
+  const { dir } = DirectoryContext();
 
   var items = dir.map((item, key) => 
-    <div>{key} {item.name}</div>
+    <Record>{item.name}</Record>
   );
 
   return(
-    <div>
+    <RecordContainer>
       {items}
-    </div>
+    </RecordContainer>
   )
 }
 

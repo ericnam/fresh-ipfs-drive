@@ -20,3 +20,12 @@ export const CreateButton = styled.button`
   margin: 10px;
   padding: 25px;
 `;
+
+export const RecordContainer = styled.span`
+  width: 100%;
+  float: left;
+`;
+
+export const Record = styled.div`
+  padding: 5px 15px;
+`;

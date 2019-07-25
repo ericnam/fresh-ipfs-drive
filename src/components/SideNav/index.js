@@ -12,9 +12,6 @@ const SideNav = () => {
   const [reloadComponent, initReload] = useState(false);
   const { dir, AddFile } = DirectoryContext();
 
-  console.log('side nav');
-  console.log(dir);
-
   const newEntry = {
     type: FILE_TYPE,
     name: 'test',
