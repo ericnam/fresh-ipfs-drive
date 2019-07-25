@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { addFile, getDirectory } from '@Action'
 import { DirectoryContext }  from '@Context';
 
+import Directory from './Directory';
 import { SideNavContainer, CreateButton } from './styles';
 import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants'
 
 const SideNav = () => {
+  const [reloadComponent, initReload] = useState(false);
   const { dir, AddFile } = DirectoryContext();
 
   console.log('side nav');
@@ -26,26 +28,10 @@ const SideNav = () => {
 
   return(
     <SideNavContainer>
-      <CreateButton onClick={() => AddFile(newEntry)}>Create</CreateButton>
+      <CreateButton onClick={() => {AddFile(newEntry); initReload(reloadComponent*-1)}}>Create</CreateButton>
+      <Directory />
     </SideNavContainer>
   )
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     ipfs: state.ipfs,
-//     init: state.init
-//   }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//   return bindActionCreators(
-//     { 
-//       addFile,
-//       getDirectory
-//     }
-//     , dispatch);
-// }
-
 export default SideNav;
-// export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
