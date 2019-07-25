@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import SideNav from '@Components/SideNav';
-import { DirectoryContext }  from '@Context';
+import IPFSWrapper from '@Components/IPFSWrapper';
 import '@Styles/App.scss';
 
+const ipfs = require('ipfs');
+const ipfs_node = new ipfs();
+
 render(
-  <DirectoryContext.Provider>
-    <SideNav />
-  </DirectoryContext.Provider>,
+  <IPFSWrapper ipfs={ipfs_node}/>,
   document.getElementById('root')
 )

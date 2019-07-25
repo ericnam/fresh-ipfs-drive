@@ -1,6 +1,7 @@
 import { asyncForEach } from '@Utils/helpers'
-import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants';
+import { FOLDER_TYPE } from '@Utils/constants';
 import { ToContextModel } from '@Context/contextConversion';
+
 
 const ipfs_ls = async (ipfs, addr) => {
   return ipfs.ls(addr);
@@ -12,6 +13,13 @@ const findDir = (dir, entryPath, i) => {
     return dir;
   }  
   return findDir(dir.children.find(x => x.name === pathArray[i]), entryPath, i+1);
+}
+
+const ipfsSwarmConnect = (ipfs, multiAddr, asyncCallback) => {
+  ipfs.swarm.connect(multiAddr, async (err) => {
+    console.log(err ? err : 'Successfully connected to rasp pi node.'); 
+    await asyncCallback();
+  });
 }
 
 const pullDirectory = async (ipfs, hash) => {
@@ -30,4 +38,4 @@ const pullDirectory = async (ipfs, hash) => {
   return directory;
 }
 
-export { ipfs_ls, findDir, pullDirectory };
+export { ipfs_ls, findDir, pullDirectory, ipfsSwarmConnect };

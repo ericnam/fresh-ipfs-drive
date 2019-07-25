@@ -10,6 +10,7 @@ import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants'
 const SideNav = () => {
   const { dir, AddFile } = DirectoryContext();
 
+  console.log('side nav');
   console.log(dir);
 
   const newEntry = {
