@@ -1,6 +1,6 @@
 import { asyncForEach } from '@Utils/helpers'
 import { FOLDER_TYPE } from '@Utils/constants';
-import { ToContextModel } from '@Context/contextConversion';
+import IPFSObject from '@Model/IPFSObject';
 
 const ipfsList = async (ipfs: any, addr: string) => {
   return ipfs.ls(addr);
@@ -22,18 +22,17 @@ const ipfsSwarmConnect = (ipfs: any, multiAddr: string, asyncCallback: any) => {
 }
 
 const pullDirectory = async (ipfs: any, hash: string) => {
-  var directory = new Array();
+  var directory: IPFSObject[] = new Array();
   await ipfsList(ipfs, hash).then(async (files) => {
-    await asyncForEach(files, async (ipfsFile: any) => {
-      var file = ToContextModel(ipfsFile);
+    await asyncForEach(files, async (ipfsFile: IPFSObject) => {
+      var file = ipfsFile;
       directory.push(file);  
       if (file.type === FOLDER_TYPE) {
-        const subDir = await pullDirectory(ipfs, file.path);
-        file.children = file.children.concat(subDir);
+        const subDir: IPFSObject[] = await pullDirectory(ipfs, file.path);
+        file.children = subDir;
       };
     });
   });
-
   return directory;
 }
 

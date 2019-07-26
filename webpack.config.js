@@ -23,7 +23,8 @@ module.exports = {
               "@Image":  __dirname + "/src/assets/img/",
               "@Reducer": __dirname +  "/src/reducers/",
               "@Action": __dirname +  "/src/actions/",
-              "@Context":  __dirname + "/src/context/"
+              "@Context":  __dirname + "/src/context/",
+              "@Model":  __dirname + "/src/model/"
             }
   },
   module: {

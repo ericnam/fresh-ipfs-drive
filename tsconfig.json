@@ -15,7 +15,8 @@
         "@Image/*": ["assets/img/*"],
         "@Reducer/*": ["reducers/*"],
         "@Action": ["actions/"],
-        "@Context/*": ["context/*"]
+        "@Context/*": ["context/*"],
+        "@Model/*": ["model/*"]
     }
   }
 }
