@@ -8,6 +8,7 @@ const useDirectory = (props: any) => {
   
   useEffect(() => {
     if (!dirInit) {
+      console.log(initialDir);
       initialDir.forEach((ele: Object) => {
         updateDir(dir => {dir.push(ele); return dir;});
         updateDirInit(true);
