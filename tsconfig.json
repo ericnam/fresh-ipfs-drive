@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": false,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "target": "es6",
+      "jsx": "react",
+      "allowJs": true,
+      "baseUrl": "./src",
+      "paths": {
+        "@Components/*": ["components/*"],
+        "@Styles/*": ["assets/styles/*"],
+        "@Utils/*": ["utils/*"],
+        "@Image/*": ["assets/img/*"],
+        "@Reducer/*": ["reducers/*"],
+        "@Action": ["actions/"],
+        "@Context/*": ["context/*"]
+    }
+  }
+}

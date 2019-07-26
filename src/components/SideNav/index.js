@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import * as React from 'react'; 
+import { useState, useEffect, useCallback } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { addFile, getDirectory } from '@Action'
-import { DirectoryContext }  from '@Context';
+import { DirectoryContext }  from '@Context/index';
 
 import Directory from './Directory';
 import { SideNavContainer, CreateButton } from './styles';
@@ -23,7 +23,7 @@ const SideNav = () => {
     children: []
   }
 
-  return(
+  return (
     <SideNavContainer>
       <CreateButton onClick={() => {AddFile(newEntry); initReload(reloadComponent*-1)}}>Create</CreateButton>
       <Directory />

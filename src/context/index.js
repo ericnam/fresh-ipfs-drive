@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import createUseContext from "constate"; 
 import { FILE_TYPE, FOLDER_TYPE, HOME_NODE_ADDRS } from '@Utils/constants';
-import { findDir, pullDirectory } from '@Utils/ipfs';
+import { findDir, pullDirectory } from '@Utils/ipfsHelper';
 
 const useDirectory = ({ initialDir }) => {
   const [dirInit, updateDirInit] = useState(false);
