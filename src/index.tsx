@@ -5,9 +5,7 @@ import { render } from 'react-dom';
 import IPFSNode from '@Utils/ipfsNode';
 
 const ipfs = require('ipfs');
-const ipfs_node = new ipfs();
-
-const node = new IPFSNode(ipfs_node);
+const node = new IPFSNode(new ipfs());
 
 render(
   <IPFSWrapper ipfs={node}/>,

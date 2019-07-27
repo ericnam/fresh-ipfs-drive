@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { DirectoryContext }  from '@Context';
+import * as React from 'react'; 
+import { DirectoryContext }  from '@Context/index';
 import { Record, RecordContainer } from './styles';
 
 const Directory = () => {

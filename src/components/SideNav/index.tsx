@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { bindActionCreators } from 'redux';
 import { addFile, getDirectory } from '@Action'
 import { DirectoryContext }  from '@Context/index';
+import IPFSObject from '@Model/IPFSObject';
 
 import Directory from './Directory';
 import { SideNavContainer, CreateButton } from './styles';
@@ -10,22 +11,22 @@ import { FILE_TYPE, FOLDER_TYPE } from '@Utils/constants'
 
 const SideNav = () => {
   const [reloadComponent, initReload] = useState(false);
-  const { dir, AddFile } = DirectoryContext();
+  const { AddFile } = DirectoryContext();
 
-  const newEntry = {
-    type: FILE_TYPE,
-    name: 'test',
-    path: '/wow/amaze',
-    size: 0,
-    depth: 0,
-    synced: false,
-    syncing: false, 
-    children: []
+  const newEntry: IPFSObject = {
+    name: 'wow',
+    hash: 'string',
+    path: 'string',
+    type: 'string',
+    size: 1,
+    children: new Array<IPFSObject>(),
+    syned: true,
+    syncing: true
   }
 
   return (
     <SideNavContainer>
-      <CreateButton onClick={() => {AddFile(newEntry); initReload(reloadComponent*-1)}}>Create</CreateButton>
+      <CreateButton onClick={() => {AddFile(newEntry); initReload(!reloadComponent)}}>Create</CreateButton>
       <Directory />
     </SideNavContainer>
   )
