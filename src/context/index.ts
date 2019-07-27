@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 import createUseContext from "constate"; 
+import IPFSObject from '@Model/IPFSObject';
 
 const useDirectory = (props: any) => {
-  const initialDir: Object[] = props.initialDir;
+  const initialDir: IPFSObject[] = props.initialDir;
   const [dirInit, updateDirInit] = useState(false);
   const [dir, updateDir] = useState([]);
   
   useEffect(() => {
     if (!dirInit) {
-      console.log(initialDir);
-      initialDir.forEach((ele: Object) => {
+      initialDir.forEach((ele: IPFSObject) => {
         updateDir(dir => {dir.push(ele); return dir;});
         updateDirInit(true);
       });
     }
   });
 
-  const AddFile = (newEntry: Object) => {
+  const AddFile = (newEntry: IPFSObject) => {
     updateDir(prevDir => { 
       prevDir.push(newEntry);
       return prevDir;
